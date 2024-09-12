@@ -1,4 +1,6 @@
 package src.model;
+import javax.swing.*;
 
-public class DoctorGeneral {
+public class DoctorGeneral extends JFrame {
+
 }

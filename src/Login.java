@@ -1,9 +1,16 @@
 package src;
 
 import javax.swing.*;
+import javax.xml.bind.Unmarshaller;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 
 public class Login extends JFrame {
+    private JLabel email;
+    private JTextField user;
+    private JLabel pass;
+    JButton boton;
 
     public Login (){
         //CONFIGURACIÓN DE LA VENTANA
@@ -29,34 +36,32 @@ public class Login extends JFrame {
         coartacion.gridx = 0;
         coartacion.gridy = 0;
 
-        JLabel email = new JLabel("Usuario:");
+        email = new JLabel("Usuario:");
         segundoPanel.add(email, coartacion);
-
         coartacion.gridx = 0;
         coartacion.gridy = 1;
 
-        JTextField user = new JTextField();
+        user = new JTextField();
         coartacion.gridx = 1;
         coartacion.gridy = 0;
         user.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK)); // Líneas inferiores negras
         user.setPreferredSize(new Dimension(150, 30));
         segundoPanel.add(user, coartacion);
-
         coartacion.gridx = 0;
         coartacion.gridy = 2;
-        JLabel pass = new JLabel("Contraseña:");
-        segundoPanel.add(pass, coartacion);
 
+        pass = new JLabel("Contraseña:");
+        segundoPanel.add(pass, coartacion);
         coartacion.gridx = 1;
         coartacion.gridy = 2;
         JPasswordField contra = new JPasswordField();
         contra.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK)); // Líneas inferiores negras
         contra.setPreferredSize(new Dimension(150, 30));
         segundoPanel.add(contra, coartacion);
-
         coartacion.gridx = 1;
         coartacion.gridy = 4;
-        JButton boton = new JButton("Iniciar Sesión");
+
+        boton = new JButton("Iniciar Sesión");
         boton.setBackground(new Color(0, 0, 0));
         boton.setForeground(new Color(255, 255, 255));
         segundoPanel.add(boton, coartacion);
@@ -67,5 +72,17 @@ public class Login extends JFrame {
 
         this.add(Mainpanel);
         this.setVisible(true);
+    }
+
+    public String getemail(){
+        return email.getText();
+    }
+
+    public String getPassword(){
+        return pass.getText();
+    }
+
+    public void addLoginListener(ActionListener listener){
+        boton.addActionListener(listener);
     }
 }
