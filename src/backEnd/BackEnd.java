@@ -13,11 +13,12 @@ public class BackEnd {
         if (doctor != null) {
 
             response.put("Nombre", doctor.getNombre());
-            response.put("Correo", doctor.getCorreo());
+            response.put("Correo", doctor.getC0rreo());
             response.put("Especialidad", doctor.getEspecialidad());
         } else {
 
             response.put("Error", "Credenciales incorrectas");
+            return response;
         }
 
         return response;

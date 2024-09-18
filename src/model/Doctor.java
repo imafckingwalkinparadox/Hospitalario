@@ -26,7 +26,7 @@ public class Doctor {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
+    public String getC0rreo() {
         return correo;
     }
 
