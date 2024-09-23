@@ -1,5 +1,5 @@
 package src.view;
-
+import java.util.HashMap;
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +7,7 @@ public class DoctorView extends JFrame {
 
     private int[] pantalla = {1300, 800};
 
-    public DoctorView() {
+    public DoctorView(HashMap<String, String> doctorData) {
         super("Perfil de Doctor");
 
         this.setSize(pantalla[0], pantalla[1]);
@@ -41,21 +41,24 @@ public class DoctorView extends JFrame {
         doctorTextPanel.setLayout(new BoxLayout(doctorTextPanel, BoxLayout.Y_AXIS));
         doctorTextPanel.setOpaque(false);
 
+        String Nombre = doctorData.get("Nombre");
+        String Especialidad = doctorData.get("Especialidad");
+
         // Jlabel nameDoctor
-        JLabel nameDoctorLabel = new JLabel("Hector Villatoro");
+        JLabel nameDoctorLabel = new JLabel(Nombre);
         nameDoctorLabel.setForeground(Color.WHITE);
         nameDoctorLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        doctorTextPanel.add(nameDoctorLabel);
 
         // JLabel especialidad
-        JLabel ParaEspecialidad = new JLabel("Doctor General");
+        JLabel ParaEspecialidad = new JLabel(Especialidad);
         ParaEspecialidad.setForeground(Color.WHITE);
         ParaEspecialidad.setFont(new Font("Arial", Font.PLAIN, 14));
-        doctorTextPanel.add(ParaEspecialidad);
 
         doctorInfoPanel.add(Box.createHorizontalStrut(20), BorderLayout.CENTER);
         doctorInfoPanel.add(doctorTextPanel, BorderLayout.EAST);
         headerPanel.add(doctorInfoPanel, BorderLayout.EAST);
+        doctorInfoPanel.add(nameDoctorLabel);
+        doctorInfoPanel.add(ParaEspecialidad);
 
 
         this.add(headerPanel, BorderLayout.NORTH);
