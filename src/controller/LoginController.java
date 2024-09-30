@@ -2,8 +2,11 @@ package src.controller;
 
 import src.Login;
 import src.backEnd.BackEnd;
+import src.model.Paciente;
+import src.view.DataPaciente;
 import src.view.DoctorView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginController {
@@ -33,7 +36,11 @@ public class LoginController {
             doctorData.put("Nombre", nombreDoctor);
             doctorData.put("Especialidad", Especialidad);
 
-            new DoctorView(response);
+            login.dispose();
+
+            ArrayList<Paciente> ListaPacientes = DataPaciente.listaPacientes();
+
+            new DoctorView(response, ListaPacientes);
         }
     }
 }
