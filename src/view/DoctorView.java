@@ -1,5 +1,8 @@
 package src.view;
+
 import src.model.Paciente;
+import src.model.Sala;
+import src.view.SalasView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,27 +13,29 @@ public class DoctorView extends JFrame {
 
     private int[] pantalla = {1300, 800};
     private ArrayList<Paciente> listaPacientes;
+    private JPanel panelPaciente;
+    private JPanel panelSalas;
 
-    public DoctorView(HashMap<String, String> doctorData, ArrayList<Paciente> listaPacientes) {
+    public DoctorView(HashMap<String, String> doctorData, ArrayList<Paciente> listaPacientes, ArrayList<Sala> listaSalas) {
         super("Perfil de Doctor");
 
         this.setSize(pantalla[0], pantalla[1]);
         this.setLayout(new BorderLayout());
         this.listaPacientes = listaPacientes;
 
-        //Panel 1
+        //Panel 1: Header
         JPanel headerPanel = new JPanel();
         headerPanel.setPreferredSize(new Dimension(1300, 60));
         headerPanel.setBackground(Color.darkGray);
         headerPanel.setLayout(new BorderLayout());
 
-        // Jlabel 1
+        // Jlabel 1: Hospital Name
         JLabel hospitalLabel = new JLabel("Hôpital Pitié Salpêtrière");
         hospitalLabel.setForeground(Color.WHITE);
         hospitalLabel.setFont(new Font("Arial", Font.BOLD, 18));
         headerPanel.add(hospitalLabel, BorderLayout.WEST);
 
-        // Panel 2
+        // Panel 2: Doctor Info
         JPanel doctorInfoPanel = new JPanel();
         doctorInfoPanel.setLayout(new BorderLayout());
         doctorInfoPanel.setOpaque(false);
@@ -41,7 +46,7 @@ public class DoctorView extends JFrame {
         logoPanel.setPreferredSize(new Dimension(60, 60));
         doctorInfoPanel.add(logoPanel, BorderLayout.WEST);
 
-        //Panel texto
+        //Panel texto: Doctor Info
         JPanel doctorTextPanel = new JPanel();
         doctorTextPanel.setLayout(new BoxLayout(doctorTextPanel, BoxLayout.Y_AXIS));
         doctorTextPanel.setOpaque(false);
@@ -65,44 +70,60 @@ public class DoctorView extends JFrame {
         doctorInfoPanel.add(nameDoctorLabel);
         doctorInfoPanel.add(ParaEspecialidad);
 
-
         this.add(headerPanel, BorderLayout.NORTH);
+
+        // Paneles de contenido
         this.add(ComponentedeMenuLateral(), BorderLayout.WEST);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
         PacienteView pacienteView = new PacienteView(listaPacientes);
-        JPanel panelPaciente = pacienteView.panelPaciente(listaPacientes);
+        panelPaciente = pacienteView.panelPaciente(listaPacientes);
         this.add(panelPaciente, BorderLayout.CENTER);
 
+        panelSalas = new SalasView(listaSalas);
+        panelSalas.setVisible(false);
+        this.add(panelSalas, BorderLayout.CENTER);
     }
 
-    private JPanel ComponentedeMenuLateral () {
+    private JPanel ComponentedeMenuLateral() {
         JPanel menuPanel = new JPanel();
-        menuPanel.setPreferredSize(new Dimension(250,pantalla[1]));
+        menuPanel.setPreferredSize(new Dimension(250, pantalla[1]));
         menuPanel.setBackground(Color.DARK_GRAY);
 
         JPanel menu = new JPanel();
-        menu.setLayout(new GridLayout(5,1));
+        menu.setLayout(new GridLayout(5, 1));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        menu.add(op("Consultas del Día"),gbc);
-        menu.add(op("Salas"),gbc);
-        menu.add(op("Farmacia"),gbc);
-        menu.add(op("Pacientes Registrados"),gbc);
-        menu.add(op("Citar en otra area"),gbc);
-        menuPanel.add(menu);
+        //menú
+        menu.add(op("Consultas del Día"), gbc);
+        menu.add(opSalas("Salas"), gbc);
+        menu.add(op("Farmacia"), gbc);
+        menu.add(op("Pacientes Registrados"), gbc);
+        menu.add(op("Citar en otra area"), gbc);
 
+        menuPanel.add(menu);
         return menuPanel;
     }
 
-    private JButton op (String texto) {
+    private JButton opSalas(String texto) {
         JButton op = new JButton(texto);
 
-        op.addActionListener(e ->  {
+        op.addActionListener(e -> {
+            panelPaciente.setVisible(false);
+            panelSalas.setVisible(true);
+        });
+
+        return op;
+    }
+
+    private JButton op(String texto) {
+        JButton op = new JButton(texto);
+
+        op.addActionListener(e -> {
             System.out.println(texto);
         });
 
