@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Hospitalario:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Hospitalario_jar</output-path>
+    <root id="archive" name="Hospitalario.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$USER_HOME$/Descargas/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Hospitalario" />
+    </root>
+  </artifact>
+</component>
