@@ -1,4 +1,7 @@
 package src.view;
+import src.model.Paciente;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 import java.awt.*;
@@ -6,12 +9,14 @@ import java.awt.*;
 public class DoctorView extends JFrame {
 
     private int[] pantalla = {1300, 800};
+    private ArrayList<Paciente> listaPacientes;
 
-    public DoctorView(HashMap<String, String> doctorData) {
+    public DoctorView(HashMap<String, String> doctorData, ArrayList<Paciente> listaPacientes) {
         super("Perfil de Doctor");
 
         this.setSize(pantalla[0], pantalla[1]);
         this.setLayout(new BorderLayout());
+        this.listaPacientes = listaPacientes;
 
         //Panel 1
         JPanel headerPanel = new JPanel();
@@ -66,6 +71,10 @@ public class DoctorView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
+        PacienteView pacienteView = new PacienteView(listaPacientes);
+        JPanel panelPaciente = pacienteView.panelPaciente(listaPacientes);
+        this.add(panelPaciente, BorderLayout.CENTER);
+
     }
 
     private JPanel ComponentedeMenuLateral () {
@@ -80,11 +89,11 @@ public class DoctorView extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        menu.add(op("Opcion 1"),gbc);
-        menu.add(op("Opcion 2"),gbc);
-        menu.add(op("Opcion 3"),gbc);
-        menu.add(op("Opcion 4"),gbc);
-        menu.add(op("Opcion 5"),gbc);
+        menu.add(op("Consultas del Día"),gbc);
+        menu.add(op("Salas"),gbc);
+        menu.add(op("Farmacia"),gbc);
+        menu.add(op("Pacientes Registrados"),gbc);
+        menu.add(op("Citar en otra area"),gbc);
         menuPanel.add(menu);
 
         return menuPanel;
@@ -100,4 +109,3 @@ public class DoctorView extends JFrame {
         return op;
     }
 }
-
