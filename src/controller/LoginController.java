@@ -3,8 +3,11 @@ package src.controller;
 import src.Login;
 import src.backEnd.BackEnd;
 import src.model.Paciente;
+import src.model.Sala;
 import src.view.DataPaciente;
+import src.view.DataSalas;
 import src.view.DoctorView;
+import src.view.DataSalas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +40,10 @@ public class LoginController {
             doctorData.put("Especialidad", Especialidad);
 
             login.dispose();
-
+            ArrayList<Sala> listaSalas = DataSalas.getSalas(); // Asumiendo que tienes una clase DataSalas que devuelve las salas
             ArrayList<Paciente> ListaPacientes = DataPaciente.listaPacientes();
 
-            new DoctorView(response, ListaPacientes);
+            new DoctorView(response, ListaPacientes, listaSalas);
         }
     }
 }
