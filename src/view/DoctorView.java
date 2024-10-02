@@ -1,10 +1,14 @@
 package src.view;
+import src.model.Medicamento;
 import src.model.Paciente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+
+import src.view.DataFarmacia; // Asegúrate de que el paquete esté correctamente importado
 
 public class DoctorView extends JFrame {
 
@@ -89,11 +93,11 @@ public class DoctorView extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        menu.add(op("Consultas del Día"),gbc);
-        menu.add(op("Salas"),gbc);
-        menu.add(op("Farmacia"),gbc);
-        menu.add(op("Pacientes Registrados"),gbc);
-        menu.add(op("Citar en otra area"),gbc);
+        menu.add(op("Consultas del Día"), gbc);
+        menu.add(op("Salas"), gbc);
+        menu.add(opFarmacia(), gbc); // Aquí añadimos el botón "Farmacia"
+        menu.add(op("Pacientes Registrados"), gbc);
+        menu.add(op("Citar en otra area"), gbc);
         menuPanel.add(menu);
 
         return menuPanel;
@@ -108,4 +112,36 @@ public class DoctorView extends JFrame {
 
         return op;
     }
+
+    private JButton opFarmacia() {
+        JButton op = new JButton("Farmacia");
+
+        op.addActionListener(e -> {
+            // Crear instancia de DataFarmacia
+            DataFarmacia dataFarmacia = new DataFarmacia();
+            List<Medicamento> medicamentos = dataFarmacia.getListaMedicamentos();
+
+            // Crear un JTextArea para mostrar los medicamentos
+            JTextArea areaTexto = new JTextArea();
+            areaTexto.setEditable(false);
+
+            // Añadir los medicamentos al JTextArea con formato más legible
+            for (Medicamento medicamento : medicamentos) {
+                areaTexto.append(medicamento.toString() + "\n\n");
+            }
+
+            // Ajustar tamaño del JTextArea
+            areaTexto.setCaretPosition(0); // Mover el cursor al inicio
+
+            // Mostrar los medicamentos en un JScrollPane
+            JScrollPane scrollPane = new JScrollPane(areaTexto);
+            scrollPane.setPreferredSize(new Dimension(600, 500)); // Ajustar tamaño de la ventana
+
+            // Mostrar en un JOptionPane
+            JOptionPane.showMessageDialog(this, scrollPane, "Lista de Medicamentos", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        return op;
+    }
+
 }
